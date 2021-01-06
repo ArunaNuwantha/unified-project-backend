@@ -18,12 +18,15 @@ app.get("/apii/", (req, res) => {
 });
 
 mongoose
-  .connect("mongodb://localhost/project", {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-    useCreateIndex: true,
-    useFindAndModify: false,
-  })
+  .connect(
+    "mongodb+srv://spm-user:1234@cluster0.pps0b.mongodb.net/spmdb?retryWrites=true&w=majority",
+    {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+      useCreateIndex: true,
+      useFindAndModify: false,
+    }
+  )
   .then(() => console.log("Connected to mongodb..."))
   .catch((err) => console.log("ERROR : ", err));
 
