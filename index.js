@@ -16,9 +16,10 @@ app.use("/api/container", containers);
 
 const cloud_mongodb =
   "mongodb+srv://spm-user:1234@cluster0.pps0b.mongodb.net/spmdb?retryWrites=true&w=majority";
+const local_mongodb = "mongodb://localhost/project";
 
 mongoose
-  .connect("mongodb://localhost/project", {
+  .connect(cloud_mongodb, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
