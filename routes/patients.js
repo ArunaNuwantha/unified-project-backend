@@ -7,10 +7,11 @@ const auth = require("../middleware/authorization");
 const { User } = require("../models/user");
 const { Patient, validatePatient } = require("../models/patient");
 
-router.get("/", auth, (req, res) => {
+router.get("/", auth, async (req, res) => {
   const token = req.header("x-auth-token");
   const decoded = jwt.verify(token, "jwtPrivateKey");
-  res.send(decoded);
+  user = await User.findOne({ email: decoded.email });
+  res.send(user.patients);
 });
 
 router.post("/", auth, async (req, res) => {
@@ -22,6 +23,7 @@ router.post("/", auth, async (req, res) => {
 
   const patient = new Patient({
     name: req.body.name,
+    age: req.body.age,
   });
 
   let user = await User.findOneAndUpdate(
@@ -30,7 +32,7 @@ router.post("/", auth, async (req, res) => {
     { new: true }
   );
 
-  return res.send("working...");
+  return res.send("Patient added successfully...");
 });
 
 module.exports = router;
