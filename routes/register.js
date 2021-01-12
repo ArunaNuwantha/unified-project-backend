@@ -14,7 +14,6 @@ router.post("/", async (req, res) => {
     if (!device) return res.status(400).send("Invalid DeviceID.");
     let user = await User.findOne({
       deviceID: req.body.deviceID,
-      email: req.body.email,
     });
 
     if (user) return res.status(400).send("Device already registered.");
